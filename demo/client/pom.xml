@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>demo</artifactId>
+        <groupId>com.mifinity</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>client</artifactId>
+
+    <packaging>war</packaging>
+    <build>
+        <plugins>
+            <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>install angular-cli</id>
+                    <configuration>
+                        <executable>cmd</executable>
+                        <arguments>
+                            <argument>/C</argument>
+                            <argument>npm install -g @angular/cli@latest</argument>
+                        </arguments>
+                    </configuration>
+                    <phase>generate-resources</phase>
+                    <goals>
+                        <goal>exec</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>build angular4 app</id>
+                    <configuration>
+                        <executable>cmd</executable>
+                        <arguments>
+                            <argument>/C</argument>
+                            <argument>npm install</argument>
+                        </arguments>
+                        <workingDirectory>./src/demo</workingDirectory>
+                    </configuration>
+                    <phase>generate-resources</phase>
+                    <goals>
+                        <goal>exec</goal>
+                    </goals>
+                </execution>
+            </executions>
+            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>com.github.eirslett</groupId>-->
+                <!--<artifactId>frontend-maven-plugin</artifactId>-->
+                <!--<version>1.5</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>install-node-and-npm</goal>-->
+                        <!--</goals>-->
+                        <!--<phase>generate-sources</phase>-->
+                    <!--</execution>-->
+                    <!--<execution>-->
+                        <!--<phase>generate-sources</phase>-->
+                        <!--<id>install angular-cli</id>-->
+                        <!--<goals>-->
+                            <!--<goal>npm</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<arguments>install -g @angular/cli@latest</arguments>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                    <!--&lt;!&ndash;<execution>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<phase>generate-sources</phase>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<id>run client app</id>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<goals>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<goal>npm</goal>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</goals>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<arguments>run-script start</arguments>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</execution>&ndash;&gt;-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<workingDirectory>./src/demo</workingDirectory>-->
+                    <!--<nodeVersion>v8.4.0</nodeVersion>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        </plugins>
+    </build>
+</project>

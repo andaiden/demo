@@ -1,0 +1,128 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0.0
+      author: andrea.schembri
+      changes:
+        - createTable:
+            tableName: card
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: card_number
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(45)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expiry_date
+                  type: VARCHAR(5)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: authority
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: authority
+                  type: VARCHAR(45)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: username
+                  type: VARCHAR(45)
+                  constraints:
+                     nullable: false
+              - column:
+                  name: password
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: user_authorities
+            columns:
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: authorities_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+
+        - addUniqueConstraint:
+            columnNames: username
+            tableName: user
+
+        - addUniqueConstraint:
+            columnNames: card_number
+            tableName: card
+
+        - createIndex:
+            columns:
+            - column:
+                name: username
+                type: varchar(45)
+            tableName: user
+
+        - createIndex:
+            columns:
+            - column:
+                name: card_number
+                type: varchar(20)
+            tableName: card
+
+        - loadUpdateData:
+            encoding: UTF-8
+            file: db/changelog/init/init_user.csv
+            primaryKey: id
+            separator: "|"
+            tableName: user
+
+        - loadUpdateData:
+            encoding: UTF-8
+            file: db/changelog/init/init_authority.csv
+            primaryKey: id
+            separator: "|"
+            tableName: authority
+
+        - loadUpdateData:
+            encoding: UTF-8
+            file: db/changelog/init/init_user_authority.csv
+            primaryKey: user_id, authorities_id
+            separator: "|"
+            tableName: user_authorities
