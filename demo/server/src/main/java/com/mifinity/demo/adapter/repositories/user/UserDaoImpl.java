@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao {
 
         final User persistedUser = repo.saveAndFlush(new User(username, password.toCharArray(), Arrays.asList(authority)));
 
-        return UserDto.builder().username(persistedUser.getUsername()).password(persistedUser.getPassword().toString()).build();
+        return UserDto.builder().username(persistedUser.getUsername()).build();
     }
 
     @Override

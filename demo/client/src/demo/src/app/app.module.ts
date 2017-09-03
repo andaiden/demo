@@ -14,12 +14,15 @@ import { AuthGuardService } from './shared/auth-guard.service';
 import { HomeComponent } from './home/home.component';
 import { ROUTER_MODULE } from "app/app.routing";
 import { LoginServiceService } from "app/shared/login-service.service";
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignupService } from "app/shared/signup.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    SignUpComponent
   ],
   imports: [
     ROUTER_MODULE,
@@ -31,7 +34,7 @@ import { LoginServiceService } from "app/shared/login-service.service";
     HttpModule,
     MDBBootstrapModule.forRoot()
   ],
-  providers: [AuthGuardService, LoginServiceService],
+  providers: [AuthGuardService, LoginServiceService, SignupService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

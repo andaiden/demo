@@ -62,7 +62,8 @@ public class SecurityConfigurationDev extends WebSecurityConfigurerAdapter {
                         "/diagnostics/**",
                         "/h2-console/**",
                         "/",
-                        "/login").permitAll() // permitting urls for testing purposes
+                        "/login",
+                        "/users/signup").permitAll() // permitting urls for testing purposes
                 .anyRequest().authenticated()
             .and()
                 .formLogin().failureHandler(new AuthFailureHandler())
@@ -77,16 +78,6 @@ public class SecurityConfigurationDev extends WebSecurityConfigurerAdapter {
         // add this line to use H2 web console
         http.headers().frameOptions().disable();
     }
-
-//    @Bean
-//    public CorsFilter corsFilter() {
-//        final CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(corsPropertiesConfiguration.getAllowedOrigins());
-//        configuration.setAllowedHeaders(corsPropertiesConfiguration.getAllowedHeaders());
-//        configuration.setAllowedMethods(corsPropertiesConfiguration.getAllowedMethods());
-//        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        return new CorsFilter(source);
-//    }
 
     @Bean
     public CorsFilter corsFilter() {

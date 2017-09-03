@@ -2,6 +2,7 @@ import {Routes, RouterModule} from "@angular/router";
 import {LoginComponent} from "./login/login.component";
 import {AuthGuardService} from "./shared/auth-guard.service";
 import {HomeComponent} from "./home/home.component";
+import { SignUpComponent } from "app/sign-up/sign-up.component";
 
 const APP_ROUTES: Routes = [
   {
@@ -20,7 +21,13 @@ const APP_ROUTES: Routes = [
     path: 'login',
     pathMatch: 'full',
     component: LoginComponent
+  },
+  {
+    path: 'signup',
+    pathMatch: 'full',
+    component: SignUpComponent
   }
+
 ];
 // Instantiating module for routing
 export const ROUTER_MODULE = RouterModule.forRoot(APP_ROUTES);
