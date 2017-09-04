@@ -26,10 +26,13 @@ Assuming you already have NodeJs installed go to
 In a command line run:
 
 ```
-mvn clean install
+mvn clean install -Pit.test
 ```
 
-After having a successful build you should have all project built including the installation of ***angular-cli***
+**NOTE: In order to run integration tests use -Pit.test**
+
+
+After having a successful build (it takes sometime since it needs to install angular-cli) you should have all project built including the installation of ***angular-cli***
 
 When ready goto
 
