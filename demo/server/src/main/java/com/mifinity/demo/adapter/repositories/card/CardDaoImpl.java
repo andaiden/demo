@@ -1,6 +1,7 @@
 package com.mifinity.demo.adapter.repositories.card;
 
 import com.mifinity.demo.adapter.rest.dto.CardDto;
+import com.mifinity.demo.adapter.rest.exceptions.UnauthorizedCardException;
 import com.mifinity.demo.domain.model.Card;
 import com.mifinity.demo.domain.model.User;
 import com.mifinity.demo.domain.port.CardDao;
@@ -29,6 +30,11 @@ public class CardDaoImpl implements CardDao {
     @Override
     public CardDto addOrUpdateCard(final User user, final CardDto cardDto) {
         final Optional<Card> existingCard = repo.findByCardNumber(cardDto.getCardNumber());
+
+        // Cannot update card which does not belong to authenticated user
+        if (existingCard.isPresent() && existingCard.get().getUser() != user) {
+            throw new UnauthorizedCardException("Cannot add or update card");
+        }
 
         final Card card = getCard(user, cardDto, existingCard);
 
