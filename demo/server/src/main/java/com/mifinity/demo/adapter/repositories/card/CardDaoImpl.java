@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by andrea.schembri on 02/09/2017.
@@ -39,13 +42,17 @@ public class CardDaoImpl implements CardDao {
     }
 
     @Override
-    public CardDto getCardByCardNumber(final String cardNumber) {
-        final Card card = repo.findByCardNumber(cardNumber).orElseThrow(() -> new EntityNotFoundException(String.format("Unable to find card with card number [%s]", cardNumber)));
+    public List<CardDto> getAllCardsByFilter(final String cardNumber) {
+        final List<Card> cadrDaoList = repo.getAllCardsByFilter(cardNumber);
 
-        return CardDto.builder().cardNumber(card.getCardNumber())
-                                .name(card.getName())
-                                .expiryDate(card.getExpiryDate())
-                                .build();
+        return buildDtoList(cadrDaoList);
+    }
+
+    @Override
+    public List<CardDto> getAllCardsForUSerByFilter(final String cardNumber, final User user) {
+        final List<Card> cadrDaoList = repo.getAllCardsForUserByFilter(cardNumber, user);
+
+        return buildDtoList(cadrDaoList);
     }
 
     @Override
@@ -62,5 +69,13 @@ public class CardDaoImpl implements CardDao {
             card = new Card(user, cardDto.getCardNumber(), cardDto.getName(), cardDto.getExpiryDate());
         }
         return card;
+    }
+
+    private List<CardDto> buildDtoList(final List<Card> cadrDaoList) {
+        return cadrDaoList.stream().map(e -> CardDto.builder().cardNumber(e.getCardNumber())
+                                                              .name(e.getName())
+                                                              .expiryDate(e.getExpiryDate())
+                                                              .build())
+                                                              .collect(Collectors.toList());
     }
 }

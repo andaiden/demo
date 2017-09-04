@@ -1,0 +1,33 @@
+<!-- Search form -->
+<form class="form-inline waves-light" mdbRippleRadius>
+    <input class="form-control" [attr.maxlength]="16" type="number" placeholder="Search" [formControl]="_searchForm.controls['cardNumber']" [ngClass]="{'invalid' : _searchForm.controls['cardNumber'].touched && _searchForm.controls['cardNumber'].valid == false,
+                                                                      'valid' : _searchForm.controls['cardNumber'].touched && _searchForm.controls['cardNumber'].valid == true}">
+    <button class="btn btn-primary waves-effect waves-light" (click)="search()" [disabled]="!_searchForm.valid">Search</button>
+</form>
+
+
+<!--Table-->
+<table class="table">    
+  <!--Table head-->
+  <thead class="blue-grey lighten-4">
+      <tr>
+          <th>#</th>
+          <th>Card Number</th>
+          <th>Name On Card</th>
+          <th>Expiry Date</th>
+      </tr>
+  </thead>
+  <!--Table head-->
+
+  <!--Table body-->
+  <tbody>
+      <tr *ngFor="let card of _cards; let i=index">
+          <td><strong>{{i + 1}}</strong></td>
+          <td><strong>{{ card.cardNumber }}</strong></td>
+          <td><strong>{{ card.name }}</strong></td>
+          <td><strong>{{ card.expiryDate }}</strong></td>
+      </tr>
+  </tbody>
+  <!--Table body-->
+</table>
+<!--Table-->

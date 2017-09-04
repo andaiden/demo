@@ -30,6 +30,10 @@ public class User {
     @OneToMany(targetEntity = Authority.class, fetch = FetchType.EAGER)
     private List<Authority> authorities;
 
+    public User(final String username) {
+        this.username = username;
+    }
+
     public User(final String username, final char[] password, final List<Authority> authorities) {
         this.username = username;
         this.password = password;

@@ -7,10 +7,12 @@ import com.mifinity.demo.domain.port.UserDao;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Created by andrea.schembri on 02/09/2017.
@@ -30,14 +32,20 @@ public class CardController {
 
     @PostMapping
     public CardDto addCard(@Valid @RequestBody final CardDto cardDto,
-                           final Principal principal) {
-        final User user = userDao.loadByUserName(principal.getName());
+                           final Authentication authentication) {
+        final User user = userDao.loadByUserName(authentication.getName());
 
         return cardDao.addOrUpdateCard(user, cardDto);
     }
 
-    @GetMapping("/{cardNumber}")
-    public CardDto getCard(@PathVariable(name="cardNumber") @CreditCardNumber final String cardNumber) {
-        return cardDao.getCardByCardNumber(cardNumber);
+    @GetMapping
+    public List<CardDto> getCardList(@RequestParam final String cardNumber,
+                                     final Authentication authentication) {
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
+            return cardDao.getAllCardsByFilter(cardNumber);
+        } else {
+            final User user = userDao.loadByUserName(authentication.getName());
+            return cardDao.getAllCardsForUSerByFilter(cardNumber, user);
+        }
     }
 }

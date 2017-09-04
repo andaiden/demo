@@ -3,6 +3,7 @@ import {LoginComponent} from "./login/login.component";
 import {AuthGuardService} from "./shared/auth-guard.service";
 import {HomeComponent} from "./home/home.component";
 import { SignUpComponent } from "app/sign-up/sign-up.component";
+import { SearchComponent } from "app/search/search.component";
 
 const APP_ROUTES: Routes = [
   {
@@ -26,6 +27,12 @@ const APP_ROUTES: Routes = [
     path: 'signup',
     pathMatch: 'full',
     component: SignUpComponent
+  },
+  {
+    path: 'search',
+    pathMatch: 'full',
+    component: SearchComponent,
+    canActivate: [AuthGuardService]
   }
 
 ];

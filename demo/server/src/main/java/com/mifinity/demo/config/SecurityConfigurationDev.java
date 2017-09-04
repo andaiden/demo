@@ -86,6 +86,7 @@ public class SecurityConfigurationDev extends WebSecurityConfigurerAdapter {
         configuration.setAllowedOrigins(corsPropertiesConfiguration.getAllowedOrigins());
         configuration.setAllowedHeaders(corsPropertiesConfiguration.getAllowedHeaders());
         configuration.setAllowedMethods(corsPropertiesConfiguration.getAllowedMethods());
+        configuration.setAllowCredentials(true);
         source.registerCorsConfiguration("/**", configuration);
         return new CorsFilter(source);
     }

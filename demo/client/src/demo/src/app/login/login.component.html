@@ -7,7 +7,7 @@
             <!--Header-->
             <div class="modal-header light-blue darken-3 white-text">
                 <h4 class="title"><i class="fa fa-user"></i> Log in</h4>
-                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="content.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -16,14 +16,18 @@
             <div class="modal-body">
               <div class="md-form">
                 <i class="fa fa-user prefix"></i>
-                <input type="text" id="form2" class="form-control" [formControl]="_signinForm.controls['username']" [ngClass]="{'invalid' : _signinForm.controls['username'].touched && _signinForm.controls['username'].valid == false,
+                <input type="text" id="username" class="form-control" [formControl]="_signinForm.controls['username']" [ngClass]="{'invalid' : _signinForm.controls['username'].touched && _signinForm.controls['username'].valid == false,
                                                                                                                             'valid' : _signinForm.controls['username'].touched && _signinForm.controls['username'].valid == true}">
+                <label [ngClass]="{'active':  _signinForm.controls['username'].value && _signinForm.controls['username'].value.length > 0,
+                                  'inactive':  _signinForm.controls['username'].value && !_signinForm.controls['username'].value.length == 0}" for="name">Username</label>                                                                                                            
               </div>
   
               <div class="md-form">
                 <i class="fa fa-lock prefix"></i>
-                <input type="password" id="form4" class="form-control" [formControl]="_signinForm.controls['password']" [ngClass]="{'invalid' : _signinForm.controls['password'].touched && _signinForm.controls['password'].valid == false,
+                <input type="password" id="password" class="form-control" [formControl]="_signinForm.controls['password']" [ngClass]="{'invalid' : _signinForm.controls['password'].touched && _signinForm.controls['password'].valid == false,
                                                                                                                                 'valid' : _signinForm.controls['password'].touched && _signinForm.controls['password'].valid == true}">
+                <label [ngClass]="{'active':  _signinForm.controls['password'].value && _signinForm.controls['password'].value.length > 0,
+                                  'inactive':  _signinForm.controls['password'].value && !_signinForm.controls['password'].value.length == 0}" for="name">Password</label>
               </div>
   
               <div class="text-xs-center">

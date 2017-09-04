@@ -17,13 +17,16 @@ import { LoginServiceService } from "app/shared/login-service.service";
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignupService } from "app/shared/signup.service";
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { CardService } from "app/shared/card-service";
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    SignUpComponent
+    SignUpComponent,
+    SearchComponent
   ],
   imports: [
     ROUTER_MODULE,
@@ -36,7 +39,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
     MDBBootstrapModule.forRoot(),
     ToastModule.forRoot()
   ],
-  providers: [AuthGuardService, LoginServiceService, SignupService],
+  providers: [AuthGuardService, LoginServiceService, SignupService, CardService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

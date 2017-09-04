@@ -16,8 +16,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
+import static java.util.Collections.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
@@ -58,24 +61,29 @@ public class CardDaoTest {
     }
 
     @Test
-    public void when_getCardByCardNumberFound_should_returnCardDto() {
-        final User user = new User("testUser", "password".toCharArray(), Arrays.asList(new Authority("ADMIN")));
-        doReturn(Optional.of(new Card(user, VALID_CARD_NUMBER, "Name on Card", "19/02"))).when(cardRepo).findByCardNumber(VALID_CARD_NUMBER);
+    public void when_getCardList_should_returnAllCardsMatching() {
+        final User user = new User("testUser", "password".toCharArray(), singletonList(new Authority("ADMIN")));
+        doReturn(singletonList(new Card(user, VALID_CARD_NUMBER, "Name on Card", "19/02"))).when(cardRepo).getAllCardsByFilter(VALID_CARD_NUMBER);
 
-        final CardDto card = cardDao.getCardByCardNumber(VALID_CARD_NUMBER);
+        final List<CardDto> card = cardDao.getAllCardsByFilter(VALID_CARD_NUMBER);
 
-        Assertions.assertThat(card).isNotNull();
-        Assertions.assertThat(card.getCardNumber()).isEqualTo(VALID_CARD_NUMBER);
-        Assertions.assertThat(card.getName()).isEqualTo("Name on Card");
-        Assertions.assertThat(card.getExpiryDate()).isEqualTo("19/02");
+        Assertions.assertThat(card.size()).isEqualTo(1);
+        Assertions.assertThat(card.get(0).getCardNumber()).isEqualTo(VALID_CARD_NUMBER);
+        Assertions.assertThat(card.get(0).getName()).isEqualTo("Name on Card");
+        Assertions.assertThat(card.get(0).getExpiryDate()).isEqualTo("19/02");
     }
 
-    @Test(expected = EntityNotFoundException.class)
-    public void when_getCardByCardNumberFound_should_throwEntityNotFoundException() {
-        final User user = new User("testUser", "password".toCharArray(), Arrays.asList(new Authority("ADMIN")));
-        doReturn(Optional.empty()).when(cardRepo).findByCardNumber(VALID_CARD_NUMBER);
+    @Test
+    public void when_getCardListByFilter_should_returnAllCardsMatching() {
+        final User user = new User("testUser", "password".toCharArray(), singletonList(new Authority("ADMIN")));
+        doReturn(singletonList(new Card(user, VALID_CARD_NUMBER, "Name on Card", "19/02"))).when(cardRepo).getAllCardsForUserByFilter(VALID_CARD_NUMBER, user);
 
-        final CardDto card = cardDao.getCardByCardNumber(VALID_CARD_NUMBER);
+        final List<CardDto> card = cardDao.getAllCardsForUSerByFilter(VALID_CARD_NUMBER, user);
+
+        Assertions.assertThat(card.size()).isEqualTo(1);
+        Assertions.assertThat(card.get(0).getCardNumber()).isEqualTo(VALID_CARD_NUMBER);
+        Assertions.assertThat(card.get(0).getName()).isEqualTo("Name on Card");
+        Assertions.assertThat(card.get(0).getExpiryDate()).isEqualTo("19/02");
     }
 
     @Test

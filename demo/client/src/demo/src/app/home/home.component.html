@@ -1,3 +1,64 @@
-<p>
-  home works!
-</p>
+<h1>Welcome</h1>
+<br>
+<br>
+<div class="text-xs-center">
+  <button class="btn btn-primary waves-effect waves-light" (click)="addcard()">Add Card</button>
+  <button class="btn btn-primary waves-effect waves-light" (click)="searchcard()">Search Card</button>
+  <button class="btn btn-primary waves-effect waves-light" (click)="logout()">Logout</button>
+</div>
+<!--Modal: Add Card Form-->
+<div bsModal #addCard="bs-modal" class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+        <!--Content-->
+        <div class="modal-content">
+
+            <!--Header-->
+            <div class="modal-header light-blue darken-3 white-text">
+                <h4 class="title"><i class="fa fa-user"></i>Add Card</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="addCard.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+              <div class="md-form">
+                <i class="fa fa fa-credit-card prefix"></i>
+                <input type="text" id="cardNumber" class="form-control" [formControl]="_addCardForm.controls['cardNumber']" [ngClass]="{'invalid' : _addCardForm.controls['cardNumber'].touched && _addCardForm.controls['cardNumber'].valid == false,
+                                                                                                                            'valid' : _addCardForm.controls['cardNumber'].touched && _addCardForm.controls['cardNumber'].valid == true}">
+                <label [ngClass]="{'active':  _addCardForm.controls['cardNumber'].value &&  _addCardForm.controls['cardNumber'].value.length > 0,
+                                  'inactive': _addCardForm.controls['cardNumber'].value && !_addCardForm.controls['cardNumber'].value.length == 0}" for="cardNumber">Card Number</label>                                                                                                                          
+              </div>
+  
+              <div class="md-form">
+                <i class="fa fa-user prefix"></i>
+                <input type="text" id="name" class="form-control" [formControl]="_addCardForm.controls['name']" [ngClass]="{'invalid' : _addCardForm.controls['name'].touched && _addCardForm.controls['name'].valid == false,
+                                                                                                                                'valid' : _addCardForm.controls['name'].touched && _addCardForm.controls['name'].valid == true}">              
+                <label [ngClass]="{'active':  _addCardForm.controls['name'].value && _addCardForm.controls['name'].value.length > 0,
+                                  'inactive':  _addCardForm.controls['name'].value && !_addCardForm.controls['name'].value.length == 0}" for="name">Name on Card</label>
+              </div>
+  
+              <div class="md-form row">
+                  <i class="fa fa-user prefix"></i>
+                  <div class="col-xs-2"> </div>
+                  <div class="col-xs-2 float-left">
+                    <input type="text" id="expiryYear" class="form-control col-xs-2" [formControl]="_addCardForm.controls['expiryYear']" [ngClass]="{'invalid' : _addCardForm.controls['expiryYear'].touched && _addCardForm.controls['expiryYear'].valid == false,
+                                                                                                                                  'valid' : _addCardForm.controls['expiryYear'].touched && _addCardForm.controls['expiryYear'].valid == true}">              
+                  </div>
+                  <div class="col-xs-1 float-left">  
+                    <p>/</p>
+                  </div>
+                  <div class="col-xs-2 float-left">  
+                    <input type="text" id="expiryMonth" class="form-control col-xs-2" [formControl]="_addCardForm.controls['expiryMonth']" [ngClass]="{'invalid' : _addCardForm.controls['expiryMonth'].touched && _addCardForm.controls['expiryMonth'].valid == false,
+                                                                                                                                'valid' : _addCardForm.controls['expiryMonth'].touched && _addCardForm.controls['expiryMonth'].valid == true}">              
+                  </div>                                                                                                              
+              </div>
+              
+            </div>
+            <div class="text-xs-center">
+                <button class="btn btn-primary waves-effect waves-light" (click)="submitAddCard()" [disabled]="!_addCardForm.valid">Submit</button>
+              </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!--Modal: Add Card Form-->

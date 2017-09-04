@@ -7,7 +7,7 @@
             <!--Header-->
             <div class="modal-header light-blue darken-3 white-text">
                 <h4 class="title"><i class="fa fa-newspaper-o"></i> Subscription form</h4>
-                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="form.hide()">
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="content.hide()">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -15,14 +15,19 @@
             <div class="modal-body mb-0">
               <div class="md-form">
                 <i class="fa fa-user prefix"></i>
-                <input type="text" id="form2" class="form-control" [formControl]="_signupForm.controls['username']" [ngClass]="{'invalid' : _signupForm.controls['username'].touched && _signupForm.controls['username'].valid == false,
+                <input type="text" id="username" class="form-control" [formControl]="_signupForm.controls['username']" [ngClass]="{'invalid' : _signupForm.controls['username'].touched && _signupForm.controls['username'].valid == false,
                                                                                                                             'valid' : _signupForm.controls['username'].touched && _signupForm.controls['username'].valid == true}">
+                <label [ngClass]="{'active':  _signupForm.controls['username'].value && _signupForm.controls['username'].value.length > 0,
+                                    'inactive':  _signupForm.controls['username'].value && !_signupForm.controls['username'].value.length == 0}" for="name">Username</label>                                                                                                                                                                                                                        
               </div>
   
               <div class="md-form">
                 <i class="fa fa-lock prefix"></i>
-                <input type="password" id="form4" class="form-control" [formControl]="_signupForm.controls['password']" [ngClass]="{'invalid' : _signupForm.controls['password'].touched && _signupForm.controls['password'].valid == false,
+                <input type="password" id="password" class="form-control" [formControl]="_signupForm.controls['password']" [ngClass]="{'invalid' : _signupForm.controls['password'].touched && _signupForm.controls['password'].valid == false,
                                                                                                                                 'valid' : _signupForm.controls['password'].touched && _signupForm.controls['password'].valid == true}">
+                
+                <label [ngClass]="{'active':  _signupForm.controls['password'].value && _signupForm.controls['password'].value.length > 0,
+                                  'inactive':  _signupForm.controls['password'].value && !_signupForm.controls['password'].value.length == 0}" for="name">Password</label>
               </div>
   
               <div class="text-xs-center">

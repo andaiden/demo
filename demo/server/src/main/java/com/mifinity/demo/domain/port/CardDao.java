@@ -3,6 +3,8 @@ package com.mifinity.demo.domain.port;
 import com.mifinity.demo.adapter.rest.dto.CardDto;
 import com.mifinity.demo.domain.model.User;
 
+import java.util.List;
+
 /**
  * Created by andrea.schembri on 02/09/2017.
  */
@@ -18,12 +20,18 @@ public interface CardDao {
     CardDto addOrUpdateCard(final User user, final CardDto cardDto);
 
     /**
-     * Get card by card number
+     * Get all cards matching filter
      *
-     * @param cardNumber
      * @return {@link CardDto}
      */
-    CardDto getCardByCardNumber(final String cardNumber);
+    List<CardDto> getAllCardsByFilter(final String cardNumber);
+
+    /**
+     * Get all cards matching filter
+     *
+     * @return {@link CardDto}
+     */
+    List<CardDto> getAllCardsForUSerByFilter(final String cardNumber, final User user);
 
     /**
      * Checks if a card exists given a card number
