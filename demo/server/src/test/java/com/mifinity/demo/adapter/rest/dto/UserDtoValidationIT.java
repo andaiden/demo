@@ -63,6 +63,6 @@ public class UserDtoValidationIT {
     @WithMockUser(username = "admin", password = "admin")
     public void test() throws Exception {
         final ObjectMapper objectMapper = new ObjectMapper();
-        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(userDto))).andExpect(status().is(expected));
+        mockMvc.perform(post("/users/signup").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(userDto))).andExpect(status().is(expected));
     }
 }

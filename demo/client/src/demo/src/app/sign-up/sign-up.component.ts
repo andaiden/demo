@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ViewContainerRef } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { SignupService } from "app/shared/signup.service";
 import { Router } from "@angular/router";
 import { User } from "app/shared/User";
+import { ToastsManager } from "ng2-toastr/ng2-toastr";
 
 @Component({
   selector: 'app-sign-up',
@@ -17,7 +18,10 @@ export class SignUpComponent implements AfterViewInit, OnDestroy, OnInit {
   
   constructor(private _formBuilder: FormBuilder,
               private _authService: SignupService,
-              private _router: Router) {
+              private _router: Router,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -46,9 +50,8 @@ export class SignUpComponent implements AfterViewInit, OnDestroy, OnInit {
         .subscribe((res) => {
           localStorage.removeItem("authenticated")
           
-          this._router.navigate(['/home'])
-        .catch(err => localStorage.removeItem("authenticated"));
-      });
-    }
+          this._router.navigate(['/home'])},
+        (err) => {this.toastr.error("Username not unique", "Sign up Error")})
+      }
   }
 }

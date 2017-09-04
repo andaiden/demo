@@ -15,7 +15,11 @@ export class SignupService {
     let options = new RequestOptions({headers: headers});
 
     return this._http.post("http://localhost:8080/users/signup", JSON.stringify(user), options)
-      .map((result) => result.json(),
-           (error) => Observable.throw(error.json().error || 'Server error'));
+      .map((result) => result.json())
+      .catch((error: any) => {
+        if (error.status === 400) {
+          return Observable.throw(error.json().error || 'Server error');
+        }
+   });
   }
 }
