@@ -16,6 +16,7 @@ import { ROUTER_MODULE } from "app/app.routing";
 import { LoginServiceService } from "app/shared/login-service.service";
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignupService } from "app/shared/signup.service";
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SignupService } from "app/shared/signup.service";
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    ToastModule.forRoot()
   ],
   providers: [AuthGuardService, LoginServiceService, SignupService],
   bootstrap: [AppComponent],

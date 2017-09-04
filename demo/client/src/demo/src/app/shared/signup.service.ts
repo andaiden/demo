@@ -15,10 +15,7 @@ export class SignupService {
     let options = new RequestOptions({headers: headers});
 
     return this._http.post("http://localhost:8080/users/signup", JSON.stringify(user), options)
-      .map((result) => {
-        localStorage.setItem("authenticated", "true");
-
-        result.json();        
-      });
+      .map((result) => result.json(),
+           (error) => Observable.throw(error.json().error || 'Server error'));
   }
 }

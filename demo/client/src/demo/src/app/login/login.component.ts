@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from "@angular/router";
 import {NgForm, Validators, FormGroup, FormBuilder} from "@angular/forms";
 import { LoginServiceService } from "app/shared/login-service.service";
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +14,14 @@ export class LoginComponent implements OnInit {
   @ViewChild('content') public contentModal;
   
   private _signinForm: FormGroup;
-  
+  private _error: boolean;
+
   constructor(private _router: Router,
               private _formBuilder: FormBuilder,
-              private _authService: LoginServiceService) {
+              private _authService: LoginServiceService,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -38,9 +43,11 @@ export class LoginComponent implements OnInit {
     if (this._signinForm.valid) {
       this._authService
         .authenticate(this._signinForm.value.username, this._signinForm.value.password)
-        .subscribe((res) => { this._router.navigate(['/home'])
-        .catch(err => localStorage.removeItem("authenticated"));
-      });
+        .subscribe((res) => { 
+          localStorage.setItem("authenticated", "true");
+
+          this._router.navigate(['/home'])},
+          (err) => {this.toastr.error("Incorrect username or password", "Authentication error")});
     }
   }
 }

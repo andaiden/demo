@@ -19,10 +19,11 @@ export class LoginServiceService {
     let options = new RequestOptions({headers: headers});
 
     return this._http.post("http://localhost:8080/login", bodyString, options)
-      .map((result) => {
-        localStorage.setItem("authenticated", "true");
-
-        result.json();        
-      });
+      .map((result) => result.json())
+      .catch((error: any) => {
+            if (error.status === 401) {
+              return Observable.throw(error.json().error || 'Server error');
+            }
+       });
   }
 }

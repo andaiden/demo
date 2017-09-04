@@ -11,20 +11,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <div>
             <!--Body-->
             <div class="modal-body">
               <div class="md-form">
                 <i class="fa fa-user prefix"></i>
                 <input type="text" id="form2" class="form-control" [formControl]="_signinForm.controls['username']" [ngClass]="{'invalid' : _signinForm.controls['username'].touched && _signinForm.controls['username'].valid == false,
                                                                                                                             'valid' : _signinForm.controls['username'].touched && _signinForm.controls['username'].valid == true}">
-                <label for="form2">Username</label>
               </div>
   
               <div class="md-form">
                 <i class="fa fa-lock prefix"></i>
                 <input type="password" id="form4" class="form-control" [formControl]="_signinForm.controls['password']" [ngClass]="{'invalid' : _signinForm.controls['password'].touched && _signinForm.controls['password'].valid == false,
                                                                                                                                 'valid' : _signinForm.controls['password'].touched && _signinForm.controls['password'].valid == true}">
-                <label for="form4">Password</label>
               </div>
   
               <div class="text-xs-center">
@@ -36,7 +35,6 @@
                 <div class="options text-center text-md-right mt-1">
                     <p>Not a member? <a routerLink="/signup">Sign Up</a></p>
                 </div>
-                <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
             </div>
         </div>
         <!--/.Content-->
