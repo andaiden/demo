@@ -68,4 +68,14 @@ Open a browser of your choice and type:
 http://localhost:4200
 ```
 
+The database used is an in memory H2. To access data in the database you can access the H2 console by typing the following url in the browser:
+
+```
+http://localhost:8080/h2-console
+```
+
+When prompted enter the following url int he **JDBC URL** field: ***jdbc:h2:mem:mifinity*** 
+
+Click on connect and you should be prompted with the database.
+
 Enjoy! :)
